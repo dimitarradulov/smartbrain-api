@@ -1,66 +1,23 @@
-import express, { json } from 'express';
+const express = require('express');
+const cors = require('cors');
+
+const { authenticateUser } = require('./middlewares/auth-user');
+const { handleRegister, handleSignIn } = require('./controllers/auth');
+const { handleGetUserProfile } = require('./controllers/profile');
+const { handleImage, handleApiCall } = require('./controllers/image');
 
 const app = express();
 
-const database = {
-  users: [
-    {
-      id: '123',
-      name: 'John',
-      email: 'john@gmail.com',
-      password: 'cookies',
-      entries: 0,
-      joined: new Date(),
-    },
-    {
-      id: '124',
-      name: 'Sally',
-      email: 'sally@gmail.com',
-      password: 'banana',
-      entries: 0,
-      joined: new Date(),
-    },
-  ],
-};
-
+app.use(cors());
 app.use(express.json());
 
-app.post('/sign-in', (req, res) => {
-  if (
-    req.body.email === database.users[0].email &&
-    req.body.password === database.users[0].password
-  ) {
-    return res.json('Success!');
-  } else {
-    return res.status(400).json('Request failed!');
-  }
-});
+app.get('/profile/:id', authenticateUser, handleGetUserProfile);
 
-app.post('/register', (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+app.post('/sign-in', handleSignIn);
+app.post('/register', handleRegister);
+app.post('/image-url', authenticateUser, handleApiCall);
 
-  const doUserExist = database.users.some((user) => user.email === email);
-
-  if (doUserExist) {
-    return res.json('This email already exists!');
-  }
-
-  if (password !== confirmPassword) {
-    return res.json('Passwords do not match!');
-  }
-
-  database.users.push({
-    id: Math.random(),
-    name,
-    email,
-    password,
-    entries: 0,
-    joined: new Date(),
-  });
-
-  console.log(database.users);
-  return res.json('Success!');
-});
+app.put('/image', authenticateUser, handleImage);
 
 app.listen(3000, () => {
   console.log('App is listening on port 3000..');

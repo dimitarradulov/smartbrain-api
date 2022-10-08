@@ -2,7 +2,7 @@
   "name": "smartbrain-api",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js"
@@ -19,7 +19,13 @@
   },
   "homepage": "https://github.com/dimitarradulov/smartbrain-api#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "bcrypt": "^5.0.1",
+    "clarifai": "^2.9.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.3.0",
+    "pg": "^8.8.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
