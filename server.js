@@ -13,6 +13,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.json('Hello!');
+});
+
 app.get('/profile/:id', authenticateUser, handleGetUserProfile);
 
 app.post('/sign-in', handleSignIn);
