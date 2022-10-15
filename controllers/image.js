@@ -2,7 +2,7 @@ const { knex } = require('../utils/db');
 const Clarifai = require('clarifai');
 
 const clarifaiApp = new Clarifai.App({
-  apiKey: '2fc1dfda952e4bafb5c65b89033ffec6',
+  apiKey: process.env.CLARIFAI_API_KEY,
 });
 
 const handleApiCall = (req, res) => {
