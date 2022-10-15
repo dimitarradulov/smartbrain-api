@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
+const PORT = process.env.PORT;
+
 const { authenticateUser } = require('./middlewares/auth-user');
 const { handleRegister, handleSignIn } = require('./controllers/auth');
 const { handleGetUserProfile } = require('./controllers/profile');
@@ -19,6 +21,6 @@ app.post('/image-url', authenticateUser, handleApiCall);
 
 app.put('/image', authenticateUser, handleImage);
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('App is listening on port 3000..');
 });
