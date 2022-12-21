@@ -11,9 +11,9 @@ const authenticateUser = (req, res, next) => {
     return res.status(403).json('Unauthorized');
   }
 
-  jwt.verify(idToken, 'ilovegoats', function (err, decodedUser) {
+  jwt.verify(idToken, process.env.SECRET_KEY, function (err, decodedUser) {
     if (err) {
-      return res.status(403).json(err);
+      return res.status(403).json('Could not authorize!');
     } else {
       req.user = decodedUser;
 
