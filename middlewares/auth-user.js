@@ -13,7 +13,7 @@ const authenticateUser = (req, res, next) => {
 
   jwt.verify(idToken, 'ilovegoats', function (err, decodedUser) {
     if (err) {
-      return res.status(403).json('Could not authorize.');
+      return res.status(403).json(err);
     } else {
       req.user = decodedUser;
 
