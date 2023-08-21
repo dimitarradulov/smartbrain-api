@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const { authenticateUser } = require('./middlewares/auth-user');
 const { handleRegister, handleSignIn } = require('./controllers/auth');
@@ -10,12 +10,7 @@ const { handleImage, handleApiCall } = require('./controllers/image');
 
 const app = express();
 
-app.use(
-  cors({
-    origin: 'https://smartbrain-seven.vercel.app/',
-    optionsSuccessStatus: 200,
-  })
-);
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
